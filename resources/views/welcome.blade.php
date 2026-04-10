@@ -264,7 +264,7 @@
 
         <!-- Sub: Condenced & High-Impact -->
         <p class="text-sm sm:text-base md:text-xl text-white font-medium max-w-2xl mx-auto leading-relaxed mb-10 drop-shadow-md">
-            {!! $landingPage->hero_text ?? 'Eksplorasi destinasi <span class="text-[#FAE251] font-black">internasional</span> & <span class="text-[#FAE251] font-black">domestik</span> tanpa ribet. Tiket, hotel, hingga itinerary lengkap—semua kami siapkan untuk liburan impian Anda.' !!}
+            {!! strip_tags($landingPage->hero_text ?? 'Eksplorasi destinasi <span class="text-[#FAE251] font-black">internasional</span> & <span class="text-[#FAE251] font-black">domestik</span> tanpa ribet. Tiket, hotel, hingga itinerary lengkap—semua kami siapkan untuk liburan impian Anda.', '<span><br><b><strong><i><u>') !!}
         </p>
 
         <!-- CTA Buttons -->
@@ -432,7 +432,7 @@
         </div>
         <div class="md:w-1/2">
             <span class="inline-block font-black tracking-widest uppercase text-[10px] px-4 py-1.5 rounded-full mb-4 text-white" style="background:linear-gradient(135deg,#9B8EC7,#BDA6CE);">{{ $landingPage->about_subtitle ?? 'Tentang AVRA Tour' }}</span>
-            <h2 class="text-4xl font-extrabold text-gray-900 mb-6 leading-tight">{!! $landingPage->about_title ?? 'Mitra Perjalanan<br>Yang Bisa Dipercaya' !!}</h2>
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-6 leading-tight">{!! strip_tags($landingPage->about_title ?? 'Mitra Perjalanan<br>Yang Bisa Dipercaya', '<span><br><b><strong><i><u>') !!}</h2>
             <p class="text-lg text-gray-600 mb-6 leading-relaxed font-medium">{{ $landingPage->about_text ?? 'Bebas overthinking, Bestie. Ribuan traveler sudah membuktikannya. Fokus kami cuma satu: bikin momen liburanmu epic & gak terlupakan.' }}</p>
             <a href="#" class="inline-flex items-center gap-2 font-black uppercase text-xs tracking-widest transition" style="color:#9B8EC7;">
                 Baca Kisah Kami <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>

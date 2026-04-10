@@ -24,7 +24,9 @@ Route::get('/admin/report/download/{type}', [ReportController::class, 'download'
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/destinations', [FrontendController::class, 'destinations'])->name('destinations');
 Route::get('/trip/{slug}', [FrontendController::class, 'show'])->name('trip.show');
-Route::post('/trip/{slug}/book', [FrontendController::class, 'book'])->name('trip.book');
+Route::post('/trip/{slug}/book', [FrontendController::class, 'book'])
+    ->middleware(['web', 'throttle:booking'])
+    ->name('trip.book');
 Route::get('/trip/{slug}/detail', [FrontendController::class, 'apiDetail'])->name('trip.api.detail');
 Route::get('/api/check-promo/{code}', [FrontendController::class, 'checkPromo'])->name('api.check.promo');
 Route::post('/api/analytics/event', function(Illuminate\Http\Request $request) {
@@ -54,7 +56,9 @@ Route::post('/admin/schedules/cancel/{id}', function ($id) {
 })->middleware(['web', 'auth']);
 
 Route::get('/cek-pesanan', [FrontendController::class, 'cekPesanan'])->name('booking.cek');
-Route::post('/cek-pesanan', [FrontendController::class, 'cekPesanan'])->name('booking.search');
+Route::post('/cek-pesanan', [FrontendController::class, 'cekPesanan'])
+    ->middleware(['web', 'throttle:booking'])
+    ->name('booking.search');
 Route::get('/cek-pesanan/{code}', [FrontendController::class, 'showPesanan'])->name('booking.show');
 Route::get('/checkout/{code}', [FrontendController::class, 'checkout'])->name('booking.checkout');
 Route::post('/cek-pesanan/{code}/pay', [FrontendController::class, 'regeneratePayment'])->name('booking.repay');

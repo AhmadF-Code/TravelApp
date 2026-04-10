@@ -116,6 +116,19 @@ class FrontendController extends Controller
 
     public function book(Request $request, $slug)
     {
+        // 1. Honeypot check
+        if ($request->filled('website_url')) {
+            Log::info('Honeypot caught a bot submission.', ['ip' => $request->ip()]);
+            abort(422, 'Spam detected.');
+        }
+
+        // 2. Submission speed check (optional but good) - e.g. < 2 seconds is likely a bot
+        $timestamp = $request->input('form_timestamp');
+        if ($timestamp && (time() - $timestamp) < 2) {
+             Log::info('Submission too fast - likely a bot.', ['ip' => $request->ip()]);
+             abort(422, 'Slow down!');
+        }
+
         $trip = Trip::where('slug', $slug)->firstOrFail();
         
         $rules = [
@@ -349,6 +362,7 @@ class FrontendController extends Controller
                     ->first();
 
                 if ($booking) {
+                    $request->session()->regenerate();
                     request()->session()->put('auth_booking_' . $booking->booking_code, true);
                     return redirect()->route('booking.show', $code);
                 } else {

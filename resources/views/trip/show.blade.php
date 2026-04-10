@@ -168,6 +168,12 @@
 
                 <form action="{{ route('trip.book', $trip->slug) }}" method="POST" id="bookingForm">
                     @csrf
+                    {{-- Honeypot field --}}
+                    <div style="display:none;">
+                        <input type="text" name="website_url" value="">
+                        <input type="hidden" name="form_timestamp" value="{{ time() }}">
+                    </div>
+
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem;">
                         <div style="grid-column:1/-1;">
                             <label class="checkout-label">Pilih Cabang Pembelian AVRA</label>
